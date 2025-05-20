@@ -118,6 +118,29 @@ python -u run.py \
 - `norm_const`: Normalization constant for data preprocessing
 - `periodicity`: Periodicity of the time series data
 
+### Parameter Tuning Guide
+The default parameters provided in scripts are a good starting point, but you may need to adjust them based on your specific dataset and requirements. Here are some suggestions for parameter tuning:
+   - `d_model`: Model dimension (default: 128) [Most Important]
+     - For longer forecasting horizon: try larger value such as 336 or 512
+     - For larger datasets: try 256 or 512; For smaller datasets: 64 or 128 is sufficient
+   - `learning_rate`: Learning rate (default: 0.001)
+     - Try range: 0.0001 - 0.01
+     - 0.001 is a moderate compromise effect.
+   - `batch_size`: Batch size (default: 32)
+     - Increase if you have enough GPU memory
+     - Decrease if you encounter OOM errors
+   - `image_size`: Image size (default: 56)
+     - Larger sizes (112) for more detailed patterns
+     - Smaller sizes (28) for faster processing
+   - `periodicity`: Periodicity (default: 24)
+     - Adjust based on your data's natural period
+   - `norm_const`: Normalization constant (default: 0.4)
+     - Range: 0.1 - 1.0
+     - Higher values for more stable training
+   - Enable `use_amp` for mixed precision training
+   - Adjust `num_workers` based on your CPU cores
+   - Set `finetune_vlm=True` if you have enough training data
+
 ## Forecasting Tasks
 Run the following scripts for different forecasting tasks:
 ```bash
